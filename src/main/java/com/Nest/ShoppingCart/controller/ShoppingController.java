@@ -47,9 +47,9 @@ public class ShoppingController {
     }
     @CrossOrigin(origins = "*")
     @PostMapping(path = "/search",consumes = "application/json", produces = "application/json")
-    public String searchProduct(){
+    public List<Products> searchProduct(@RequestBody Products p){
 
-        return "search page";
+        return (List<Products>) dao2.searchProduct(p.getName());
     }
     @CrossOrigin(origins = "*")
     @GetMapping(path = "/cardView",consumes = "application/json", produces = "application/json")
@@ -59,9 +59,9 @@ public class ShoppingController {
     }
     @CrossOrigin(origins = "*")
     @PostMapping(path = "/cardSearch",consumes = "application/json", produces = "application/json")
-    public String cardSearch(){
+    public List<Products> cardSearch(@RequestBody Products p){
 
-        return "card search page";
+        return (List<Products>) dao2.searchProduct(p.getName());
     }
 
 
