@@ -4,11 +4,9 @@ import com.Nest.ShoppingCart.dao.ProductDao;
 import com.Nest.ShoppingCart.dao.RegisterDao;
 import com.Nest.ShoppingCart.model.Products;
 import com.Nest.ShoppingCart.model.Registration;
+import jakarta.persistence.GeneratedValue;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +16,8 @@ public class ShoppingController {
 
     @Autowired
     private RegisterDao dao1;
+
+    @Autowired
     private ProductDao dao2;
     @CrossOrigin(origins = "*")
     @PostMapping(path = "/register",consumes = "application/json", produces = "application/json")
@@ -40,7 +40,7 @@ public class ShoppingController {
         return map;
     }
     @CrossOrigin(origins = "*")
-    @PostMapping(path = "/view",consumes = "application/json", produces = "application/json")
+    @GetMapping(path = "/view",consumes = "application/json", produces = "application/json")
     public List<Products> viewProduct(){
 
         return (List<Products>) dao2.findAll();
@@ -52,7 +52,7 @@ public class ShoppingController {
         return "search page";
     }
     @CrossOrigin(origins = "*")
-    @PostMapping(path = "/cardView",consumes = "application/json", produces = "application/json")
+    @GetMapping(path = "/cardView",consumes = "application/json", produces = "application/json")
     public List<Products> cardView(){
 
         return (List<Products>) dao2.findAll();
