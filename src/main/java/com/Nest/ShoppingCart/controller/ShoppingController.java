@@ -1,52 +1,64 @@
 package com.Nest.ShoppingCart.controller;
 
+import com.Nest.ShoppingCart.dao.ProductDao;
+import com.Nest.ShoppingCart.dao.RegisterDao;
 import com.Nest.ShoppingCart.model.Products;
 import com.Nest.ShoppingCart.model.Registration;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.List;
+
 @RestController
 public class ShoppingController {
 
-
+    @Autowired
+    private RegisterDao dao1;
+    private ProductDao dao2;
     @CrossOrigin(origins = "*")
-    @PostMapping(path = "/register")
-    public String registerUser(@RequestBody Registration r){
+    @PostMapping(path = "/register",consumes = "application/json", produces = "application/json")
+    public HashMap<String,String> registerUser(@RequestBody Registration r){
 
-        System.out.println(r.getName());
+        dao1.save(r);
+        HashMap<String,String> map = new HashMap<>();
+        map.put("status","success");
 
-        return "register page";
+        return map;
     }
     @CrossOrigin(origins = "*")
-    @PostMapping(path = "/add")
-    public String addProduct(@RequestBody Products p){
+    @PostMapping(path = "/add",consumes = "application/json", produces = "application/json")
+    public HashMap<String, String> addProduct(@RequestBody Products p){
 
-        System.out.println(p.getName());
+        dao2.save(p);
+        HashMap<String,String> map = new HashMap<>();
+        map.put("status","success");
 
-        return "add page";
+        return map;
     }
     @CrossOrigin(origins = "*")
-    @PostMapping(path = "/view")
-    public String viewProduct(){
+    @PostMapping(path = "/view",consumes = "application/json", produces = "application/json")
+    public List<Products> viewProduct(){
 
-        return "view page";
+        return (List<Products>) dao2.findAll();
     }
     @CrossOrigin(origins = "*")
-    @PostMapping(path = "/search")
+    @PostMapping(path = "/search",consumes = "application/json", produces = "application/json")
     public String searchProduct(){
 
         return "search page";
     }
     @CrossOrigin(origins = "*")
-    @PostMapping(path = "/cardView")
-    public String cardView(){
+    @PostMapping(path = "/cardView",consumes = "application/json", produces = "application/json")
+    public List<Products> cardView(){
 
-        return "card view page";
+        return (List<Products>) dao2.findAll();
     }
     @CrossOrigin(origins = "*")
-    @PostMapping(path = "/cardSearch")
+    @PostMapping(path = "/cardSearch",consumes = "application/json", produces = "application/json")
     public String cardSearch(){
 
         return "card search page";
