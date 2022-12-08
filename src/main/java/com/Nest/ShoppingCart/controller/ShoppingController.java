@@ -40,7 +40,7 @@ public class ShoppingController {
         return map;
     }
     @CrossOrigin(origins = "*")
-    @GetMapping(path = "/view",consumes = "application/json", produces = "application/json")
+    @GetMapping(path = "/view")
     public List<Products> viewProduct(){
 
         return (List<Products>) dao2.findAll();
@@ -51,19 +51,17 @@ public class ShoppingController {
 
         return (List<Products>) dao2.searchProduct(p.getName());
     }
+
+
+
     @CrossOrigin(origins = "*")
-    @GetMapping(path = "/cardView",consumes = "application/json", produces = "application/json")
-    public List<Products> cardView(){
+    @PostMapping(path = "/userLogin",consumes = "application/json", produces = "application/json")
+    public List<Registration> userLogin(@RequestBody Registration r){
 
-        return (List<Products>) dao2.findAll();
+        System.out.println(r.getEmailId());
+        System.out.println(r.getPassword());
+        return (List<Registration>) dao1.userLogin(r.getEmailId(), r.getPassword());
     }
-    @CrossOrigin(origins = "*")
-    @PostMapping(path = "/cardSearch",consumes = "application/json", produces = "application/json")
-    public List<Products> cardSearch(@RequestBody Products p){
-
-        return (List<Products>) dao2.searchProduct(p.getName());
-    }
-
 
 
 

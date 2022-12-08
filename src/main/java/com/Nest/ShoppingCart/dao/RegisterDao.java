@@ -7,7 +7,8 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface RegisterDao extends CrudRepository <Registration, Integer>{
-    @Query(value = "SELECT `id`, `category`, `description`, `image`, `name`, `price` FROM `products` WHERE `name` = :name", nativeQuery = true)
-    List<Registration> cardsearch();
+    @Query(value = " SELECT `id`, `address`, `email_id`, `name`, `password`, `phn_no`, `username` FROM `registration` WHERE `email_id` = :email_id AND `password` = :password", nativeQuery = true)
+    List<Registration> userLogin(String email_id, String password);
+
 
 }
