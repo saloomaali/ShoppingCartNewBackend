@@ -56,11 +56,31 @@ public class ShoppingController {
 
     @CrossOrigin(origins = "*")
     @PostMapping(path = "/userLogin",consumes = "application/json", produces = "application/json")
-    public List<Registration> userLogin(@RequestBody Registration r){
+    public HashMap<String,String> userLogin(@RequestBody Registration r){
 
-        System.out.println(r.getEmailId());
-        System.out.println(r.getPassword());
-        return (List<Registration>) dao1.userLogin(r.getEmailId(), r.getPassword());
+        HashMap<String , String> map = new HashMap<>();
+        List<Registration> reult = dao1.userLogin(r.getEmailId(), r.getPassword());
+
+        if(reult.size()==0){
+
+            map.put("status", "failed");
+        }
+        else {
+
+            int id = reult.get(0).getId();
+            map.put("message","user login success");
+            map.put("userId", String.valueOf(id));
+            map.put("status","success");
+        }
+        return map;
+
+    }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/viewProfile", consumes = "application/json", produces = "application/json")
+    public List<Registration> viewProfile(@RequestBody Registration r){
+
+        return dao1.viewProfile(r.getId());
     }
 
 
